@@ -8,9 +8,13 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/websocket v1.5.0
+	github.com/iancoleman/strcase v0.0.0-20190422225806-e506e3ef7365
 	github.com/joho/godotenv v1.5.1
 	github.com/judwhite/go-svc v1.2.1
+	github.com/prisma/prisma-client-go v0.17.0
 	github.com/redis/go-redis/v9 v9.0.2
+	github.com/shopspring/decimal v1.3.1
+	github.com/takuoki/gocase v1.0.0
 	golang.org/x/crypto v0.6.0
 	gorm.io/driver/postgres v1.5.0
 	gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
