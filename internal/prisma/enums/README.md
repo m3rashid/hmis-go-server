@@ -29,9 +29,15 @@
 | FEMALE |   1   |
 | OTHER  |   2   |
 
-### [enum Permissions](./permissions.md)
+### [enum Permissions](./permissions.md#enum-permissionlevel)
 
-### [enum Dosage](./dosage.md)
+### [enum Dosage](./medicine.md#enum-dosage)
+
+### [enum Consumables MedicineType](./inventory.md#enum-consumables-medicinetype)
+
+### [enum NonConsumables MedicineType](./inventory.md#enum-nonconsumables-medicinetype)
+
+
 
 #### enum BloodGroup
 

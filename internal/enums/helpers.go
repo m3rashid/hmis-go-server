@@ -5,6 +5,7 @@ import (
 	"strconv"
 )
 
+
 func SplitDigits(num int64) []int {
 	numStr := strconv.FormatInt(num, 10)
 	fmt.Println(numStr)

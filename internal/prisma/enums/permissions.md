@@ -1,4 +1,4 @@
-#### PermissionLevel
+### enum PermissionLevel
 
 | Name        | Value | Description |
 | ----------- | :---: | :---------: |

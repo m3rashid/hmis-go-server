@@ -10,7 +10,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
-	"github.com/m3rashid-org/hmis-go-server/redis"
+	"github.com/m3rashid-org/hmis-go-server/internal/redis"
 )
 
 type PayloadSub struct {
@@ -22,6 +22,12 @@ type PayloadSub struct {
 
 type Payload struct {
 	jwt.StandardClaims
+}
+
+type User struct {
+	ID uint;
+	Name string;
+	Email string; 
 }
 
 func GenPayload(user User) (Payload, error) {
@@ -72,7 +78,7 @@ func RevokeLastJwt(payload Payload) {
 
 func OnJwtDispatch(payload Payload) {
 	RevokeLastJwt(payload)
-	redis.SetEx(fmt.Sprintf("user_jwt:%s", payload.Subject), fmt.Sprintf("%s:%d", payload.Id, payload.ExpiresAt), time.Unix(payload.ExpiresAt, 0).Sub(time.Now()))
+	redis.SetEx(fmt.Sprintf("user_jwt:%s", payload.Subject), fmt.Sprintf("%s:%d", payload.Id, payload.ExpiresAt), time.Until(time.Unix(payload.ExpiresAt, 0)))
 }
 
 func Encoder(payload Payload) string {
@@ -87,7 +93,7 @@ func Encoder(payload Payload) string {
 func Decoder(tokenString string) (string, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &Payload{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(os.Getenv("JWT_SECRET_KEY")), nil
 	})
