@@ -18,3 +18,20 @@ func SplitDigits(num int64) []int {
 
 	return digits
 }
+
+var PowersOfTwo = []int{1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048}
+
+// returns the actual number and its index
+func GetPowerOfTwoJustBelowNum(permLevel int) (int, int) {
+	if permLevel <= 0 {
+		return 0, 0;
+	}
+
+	for i, power := range PowersOfTwo {
+		if power > permLevel {
+			return PowersOfTwo[i-1], i-1;
+		}
+		i++;
+	}
+	return 1, 0;
+}

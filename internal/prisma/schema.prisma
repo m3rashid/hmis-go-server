@@ -29,7 +29,7 @@ model Resource {
   updatedAt      DateTime      @updatedAt
   name           String
   description    String
-  totalLevelsSum Int
+  totalLevelSum Int
   Permissions    Permissions[]
 }
 
