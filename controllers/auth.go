@@ -1,11 +1,10 @@
-package auth
+package controllers
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-	"github.com/m3rashid-org/hmis-go-server/utils/db"
+	"github.com/m3rashid-org/hmis-go-server/db"
 	"golang.org/x/crypto/bcrypt"
 )
 

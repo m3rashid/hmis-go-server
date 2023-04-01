@@ -8,9 +8,10 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/judwhite/go-svc"
-	"github.com/m3rashid-org/hmis-go-server/modules"
-	"github.com/m3rashid-org/hmis-go-server/utils/redis"
+	"github.com/m3rashid-org/hmis-go-server/redis"
+	"github.com/m3rashid-org/hmis-go-server/routers"
 )
+const portNumber = ":8080"
 
 type program struct{}
 
@@ -30,7 +31,7 @@ func (p *program) Stop() error {
 }
 
 func (p *program) Start() error {
-	modules.InitRouter(os.Interrupt)
+	routers.InitRouter(os.Interrupt)
 	fmt.Println("Server Started 🏄 on :", os.Getenv("HTTP_PORT"))
 	return nil
 }

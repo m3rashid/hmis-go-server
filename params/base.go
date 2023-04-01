@@ -1,12 +1,9 @@
-package base
+package params
 
 import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
-
-	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
 )
 
 func Param(c *gin.Context, key string) string {

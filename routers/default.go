@@ -1,4 +1,4 @@
-package modules
+package routers
 
 import (
 	"fmt"
@@ -6,9 +6,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
-	"github.com/m3rashid-org/hmis-go-server/modules/base"
+	"github.com/m3rashid-org/hmis-go-server/controllers"
 )
 
 func InitRouter(sig ...os.Signal) {
@@ -32,7 +30,7 @@ func SetupRouter() *gin.Engine {
 	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
 	router.Use(cors.New(config))
 
-	router.GET("/ping", base.PingHandler)
+	router.GET("/ping", controllers.PingHandler)
 
 	return router
 }

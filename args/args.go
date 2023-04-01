@@ -1,8 +1,6 @@
-package utils
+package args
 
-import (
-	"flag"
-)
+import "flag"
 
 type CmdArgs struct {
 	DB      string

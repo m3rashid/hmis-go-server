@@ -1,4 +1,4 @@
-package auth
+package utils
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
-	"github.com/m3rashid-org/hmis-go-server/utils/redis"
+	"github.com/m3rashid-org/hmis-go-server/redis"
 )
 
 type PayloadSub struct {

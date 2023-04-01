@@ -4,9 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
-	"github.com/m3rashid-org/hmis-go-server/modules/auth"
 )
 
 type OptionalProps struct {
