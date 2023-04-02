@@ -68,6 +68,7 @@ CREATE TABLE "User" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT,
+    "Password" TEXT NOT NULL,
     "roleId" INTEGER NOT NULL,
     "isDeleted" BOOLEAN NOT NULL,
 

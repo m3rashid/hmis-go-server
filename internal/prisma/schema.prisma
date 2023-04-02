@@ -24,13 +24,13 @@ model Address {
 }
 
 model Resource {
-  id             Int           @id @default(autoincrement())
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  name           String
-  description    String
+  id            Int           @id @default(autoincrement())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  name          String
+  description   String
   totalLevelSum Int
-  Permissions    Permissions[]
+  Permissions   Permissions[]
 }
 
 model Permissions {
@@ -72,6 +72,7 @@ model User {
   updatedAt DateTime  @updatedAt
   email     String    @unique
   name      String?
+  Password  String
   addresses Address[]
   profile   Profile?
   role      Role      @relation(fields: [roleId], references: [id])

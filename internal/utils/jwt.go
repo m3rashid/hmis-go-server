@@ -1,113 +1,44 @@
 package utils
 
 import (
-	"encoding/json"
-	"fmt"
 	"os"
-	"strconv"
-	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/google/uuid"
-	"github.com/m3rashid-org/hmis-go-server/internal/redis"
 )
 
-type PayloadSub struct {
-	UserId uint   `json:"userId"`
-	Name   string `json:"name"`
-	Email  string `json:"email"`
-	// Permissions []string `json:"permissions"`
+/**
+ * Claims are the data to be stored inside of the token
+ * ID (userID), Email,
+ * Permissions ( {[resourceId: int]: [permissionLevel: int]} map )
+ */
+type Claims struct {
+	ID          int         `json:"id"`
+	Email       string      `json:"email"`
+	Permissions map[int]int `json:"permissions"`
+	jwt.RegisteredClaims
 }
 
-type Payload struct {
-	jwt.StandardClaims
-}
-
-type User struct {
-	ID uint;
-	Name string;
-	Email string; 
-}
-
-func GenPayload(user User) (Payload, error) {
-	now := time.Now()
-	payload, err := json.Marshal(PayloadSub{
-		UserId: user.ID,
-		Name:   user.Name,
-		Email:  user.Email,
-		// Permissions: user.Permissions,
-	})
-	if err != nil {
-		return Payload{}, err
+func GenerateJwtToken(userId int, email string, permissions map[int]int) (string, time.Time, error) {
+	expirationTime := time.Now().Add(5 * time.Minute)
+	claims := &Claims{
+		ID:          userId,
+		Email:       email,
+		Permissions: permissions,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(expirationTime),
+		},
 	}
 
-	return Payload{StandardClaims: jwt.StandardClaims{
-		ExpiresAt: now.Add(1 * time.Hour).Unix(),
-		Id:        uuid.New().String(),
-		NotBefore: now.Unix(),
-		IssuedAt:  now.Unix(),
-		Subject:   string(payload),
-	}}, nil
-}
-
-func JwtRevoked(payload Payload) bool {
-	return redis.Exists(fmt.Sprintf("user_blacklist:%s:%s", payload.Subject, payload.Id))
-}
-
-func RevokeJwt(payload Payload) {
-	expiration := payload.ExpiresAt - payload.IssuedAt
-	redis.SetEx(fmt.Sprintf("user_blacklist:%s:%s", payload.Subject, payload.Id), payload.Id, time.Duration(expiration)*time.Second)
-}
-
-func RevokeLastJwt(payload Payload) {
-	lastJwt := redis.Get(fmt.Sprintf("user_jwt:%s", payload.Subject))
-	if lastJwt != "" {
-		arr := strings.Split(lastJwt, ":")
-		jti, expStr := arr[0], arr[len(arr)-1]
-		exp, err := strconv.ParseInt(expStr, 10, 64)
-		if err != nil {
-			exp = time.Now().Unix()
-		}
-		payload.Id = jti
-		payload.IssuedAt = time.Now().Unix()
-		payload.ExpiresAt = exp
-		RevokeJwt(payload)
-	}
-}
-
-func OnJwtDispatch(payload Payload) {
-	RevokeLastJwt(payload)
-	redis.SetEx(fmt.Sprintf("user_jwt:%s", payload.Subject), fmt.Sprintf("%s:%d", payload.Id, payload.ExpiresAt), time.Until(time.Unix(payload.ExpiresAt, 0)))
-}
-
-func Encoder(payload Payload) string {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, payload)
-	tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET_KEY")))
-	if err != nil {
-		fmt.Println(err)
-	}
-	return tokenString
-}
-
-func Decoder(tokenString string) (string, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &Payload{}, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-		}
-		return []byte(os.Getenv("JWT_SECRET_KEY")), nil
-	})
-	if err != nil {
-		return "", err
-	}
-
-	if payload, ok := token.Claims.(*Payload); ok && token.Valid {
-		sub := (*payload).Subject
-
-		if sub != "" && !JwtRevoked(*payload) {
-			return sub, nil
-		}
-	}
-
-	return "", fmt.Errorf("invalid token")
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(os.Getenv("JWT_SECRET_KEY"))
+	/*
+		Do something like this on the handler
+		http.SetCookie(w, &http.Cookie{
+			Name:    "token",
+			Value:   tokenString,
+			Expires: expirationTime,
+		})
+	*/
+	return tokenString, expirationTime, err
 }
