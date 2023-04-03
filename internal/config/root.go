@@ -1,6 +1,8 @@
 package config
 
 import (
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -8,6 +10,7 @@ var FiberApp = fiber.New(fiber.Config{
 	BodyLimit:    1024 * 1024 * 10, // 10 MB
 	ServerHeader: "HMIS",
 	ETag:         true,
+	IdleTimeout:  5 * 60 * time.Second,
 	ErrorHandler: func(ctx *fiber.Ctx, err error) error {
 		/*
 			code := fiber.StatusInternalServerError

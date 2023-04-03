@@ -67,6 +67,7 @@ func CurrentUser(c *fiber.Ctx) error {
 }
 
 func AuthPing(c *fiber.Ctx) error {
+	fmt.Println(c)
 	return c.SendString("Hello, World!")
 }
 

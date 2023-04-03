@@ -25,10 +25,18 @@ func main() {
 	app.Use(middlewares.Idempotency)
 	app.Use(middlewares.Limiter)
 
+	app.Get("/", controllers.Base)
+	app.Get("/ping", controllers.Ping)
 	app.Get("/metrics", controllers.MonitorEndpoint)
-	/**
-	* Other routes
-	 */
+
+	app.Post("/login", controllers.Login)
+	app.Post("/register", controllers.CreateUser)
+
+	auth := app.Group("/auth", middlewares.Protected())
+	auth.Post("/ping", controllers.AuthPing)
+	auth.Post("/user", controllers.CurrentUser)
+	auth.Post("/logout", controllers.Logout)
+	auth.Post("/refresh", controllers.RefreshToken)
 
 	app.Use(middlewares.Recover)
 	log.Fatal(app.Listen(":" + os.Getenv("HTTP_PORT")))
