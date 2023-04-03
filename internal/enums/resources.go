@@ -6,7 +6,9 @@ type Resource struct {
 	TotalLevelSum int
 }
 
-var AppResourcesList = []Resource{
+type AppResourcesListType []Resource
+
+var AppResourcesList = AppResourcesListType{
 	Resource{
 		Name:          "User",
 		Description:   "Auth users in the domain",

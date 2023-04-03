@@ -4,10 +4,12 @@ import (
 	"log"
 	"os"
 
+	"github.com/gofiber/websocket/v2"
 	"github.com/joho/godotenv"
 	"github.com/m3rashid-org/hmis-go-server/internal/config"
 	"github.com/m3rashid-org/hmis-go-server/internal/controllers"
 	"github.com/m3rashid-org/hmis-go-server/internal/middlewares"
+	"github.com/m3rashid-org/hmis-go-server/internal/ws"
 )
 
 func main() {
@@ -28,10 +30,16 @@ func main() {
 	app.Get("/", controllers.Base)
 	app.Get("/ping", controllers.Ping)
 	app.Get("/metrics", controllers.MonitorEndpoint)
+	app.Get("/favicon.ico", controllers.Favicon)
 
 	app.Post("/login", controllers.Login)
 	app.Post("/register", controllers.CreateUser)
 
+	socket := app.Group("/ws", ws.UpgraderMiddleware)
+	socket.Get("/", websocket.New(ws.WebsocketHandler))
+	go ws.RunHub()
+
+	// auth group for all protected requests
 	auth := app.Group("/auth", middlewares.Protected())
 	auth.Post("/ping", controllers.AuthPing)
 	auth.Post("/user", controllers.CurrentUser)

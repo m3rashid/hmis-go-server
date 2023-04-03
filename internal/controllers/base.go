@@ -13,6 +13,10 @@ func Ping(c *fiber.Ctx) error {
 	return c.SendString("PONG !")
 }
 
+func Favicon(c *fiber.Ctx) error {
+	return c.SendStatus(fiber.StatusOK)
+}
+
 var MonitorEndpoint = monitor.New(monitor.Config{
 	Title:      "HMIS Server Metrics",
 	CustomHead: "HMIS",
