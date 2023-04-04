@@ -8,7 +8,7 @@ import (
 
 var FiberApp = fiber.New(fiber.Config{
 	BodyLimit:    1024 * 1024 * 10, // 10 MB
-	ServerHeader: "HMIS",
+	ServerHeader: string(AppName),
 	ETag:         true,
 	IdleTimeout:  5 * 60 * time.Second,
 	ErrorHandler: func(ctx *fiber.Ctx, err error) error {
