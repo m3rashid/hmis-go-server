@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"time"
@@ -12,6 +11,7 @@ import (
 	"github.com/m3rashid-org/hmis-go-server/internal/params"
 	"github.com/m3rashid-org/hmis-go-server/internal/services"
 	"github.com/m3rashid-org/hmis-go-server/internal/utils"
+	"gorm.io/gorm"
 )
 
 func RefreshToken(c *fiber.Ctx) error {
@@ -62,7 +62,7 @@ func Logout(c *fiber.Ctx) error {
 }
 
 func CurrentUser(c *fiber.Ctx) error {
-
+	// TODO: get user from token and populate profile
 	return c.SendString("Hello, World!")
 }
 
@@ -75,17 +75,8 @@ func Login(c *fiber.Ctx) error {
 	var Login params.LoginRequest
 	c.BodyParser(Login)
 
-	user, err := utils.PrismaClient.User.FindUnique(
-		models.User.Email.Equals(Login.Email),
-	).With(
-		models.User.Profile.Fetch(),
-	).With(
-		models.User.Role.Fetch().With(
-			models.Role.Permissions.Fetch(),
-		),
-	).Exec(context.Background())
-
-	if err != nil {
+	user := models.User{}
+	if err := utils.GetLocal[*gorm.DB](c, "db").Find(&models.User{}, "email = ?", Login.Email).First(&user); err != nil {
 		c.SendStatus(404)
 	}
 
@@ -96,9 +87,9 @@ func Login(c *fiber.Ctx) error {
 		c.SendStatus(401)
 	}
 
-	rawPermissions := user.Role().Permissions()
-	permissions := rawPermissions
-	fmt.Println(permissions)
+	// rawPermissions := user.Role().Permissions()
+	// permissions := rawPermissions
+	// fmt.Println(permissions)
 
 	// create json web token
 	// tokenString, expirationTime, err := utils.GenerateJwtToken(user.ID, user.Email, user.)
@@ -113,9 +104,9 @@ func Login(c *fiber.Ctx) error {
 		Expires: expirationTime,
 	})
 	return c.Status(200).JSON(fiber.Map{
-		"token":       tokenString,
-		"user":        user,
-		"permissions": rawPermissions,
+		"token": tokenString,
+		"user":  user,
+		// "permissions": rawPermissions,
 	})
 }
 

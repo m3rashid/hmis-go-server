@@ -1,4 +1,4 @@
-## All enums are to be handled in the applicatio logic
+## All enums are to be handled in the application logic
 
 ### enum Days
 
@@ -37,8 +37,6 @@
 
 ### [enum NonConsumables MedicineType](./inventory.md#enum-nonconsumables-medicinetype)
 
-
-
 #### enum BloodGroup
 
 | Name        | Value |
@@ -52,12 +50,3 @@
 | O_NEGATIVE  |   6   |
 | AB_POSITIVE |   7   |
 | AB_NEGATIVE |   8   |
-
-#### enum ServicingTimeUnit
-
-| Name   | Value |
-| ------ | :---: |
-| DAYS   |   0   |
-| WEEKS  |   1   |
-| MONTHS |   2   |
-| YEARS  |   3   |

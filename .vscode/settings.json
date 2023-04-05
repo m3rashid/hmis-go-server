@@ -1,5 +1,6 @@
 {
 	"[go]": {
 		"editor.formatOnSaveMode": "file"
-	}
+	},
+	"cSpell.enabled": false
 }

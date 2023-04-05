@@ -91,3 +91,12 @@
 | DXM  |  32   |           Dental x-ray machines           |
 | OIM  |  33   |            Orthopedic implants            |
 | PTO  |  34   |         Prosthetics and orthotics         |
+
+### enum ServicingTimeUnit
+
+| Name   | Value |
+| ------ | :---: |
+| DAYS   |   0   |
+| WEEKS  |   1   |
+| MONTHS |   2   |
+| YEARS  |   3   |

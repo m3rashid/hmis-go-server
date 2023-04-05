@@ -1,14 +1,12 @@
 package params
 
-import "github.com/m3rashid-org/hmis-go-server/internal/models"
-
 type LoginRequest struct {
 	Email    string `form:"email" json:"email" xml:"email" binding:"required"`
 	Password string `form:"password" json:"password" xml:"password" binding:"required"`
 }
 
 type LoginResponse struct {
-	User  models.UserParamUnique
+	User  any
 	Token string
 }
 
