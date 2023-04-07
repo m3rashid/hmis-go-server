@@ -136,26 +136,3 @@ Patient
 - Quote for appointment
 
 </details>
-
-<br />
-
-## Tech Stack
-
-| Package                            | Description                                |
-| ---------------------------------- | ------------------------------------------ |
-| github.com/gin-contrib/cors        | Middleware to handle Cross Origin Requests |
-| github.com/gin-gonic/gin           | Web Framework                              |
-| github.com/golang-jwt/jwt/v4       | JWT Authentication                         |
-| github.com/google/uuid             | UUID Generation                            |
-| github.com/gorilla/websocket       | Websocket Connection                       |
-| github.com/joho/godotenv           | Environment Variables                      |
-| github.com/judwhite/go-svc         | -                                          |
-| github.com/prisma/prisma-client-go | Prisma ORM for Go                          |
-| github.com/redis/go-redis/v9       | Redis Client                               |
-| golang.org/x/crypto                | Crypto Library for password hashing        |
-| github.com/takuoki/gocase          | -                                          |
-| github.com/shopspring/decimal      | -                                          |
-
-<!-- github.com/iancoleman/strcase -->
-<!-- gorm.io/driver/postgres -->
-<!-- gorm.io/gorm -->
