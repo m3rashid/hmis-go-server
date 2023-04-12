@@ -10,7 +10,6 @@ import (
 	"github.com/m3rashid-org/hmis-go-server/internal/config"
 	"github.com/m3rashid-org/hmis-go-server/internal/controllers"
 	"github.com/m3rashid-org/hmis-go-server/internal/middlewares"
-	"github.com/m3rashid-org/hmis-go-server/internal/models"
 	"github.com/m3rashid-org/hmis-go-server/internal/utils"
 	"github.com/m3rashid-org/hmis-go-server/internal/ws"
 )

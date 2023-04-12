@@ -7,7 +7,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/m3rashid-org/hmis-go-server/internal/models"
 	"github.com/m3rashid-org/hmis-go-server/internal/params"
 	"github.com/m3rashid-org/hmis-go-server/internal/services"
 	"github.com/m3rashid-org/hmis-go-server/internal/utils"
