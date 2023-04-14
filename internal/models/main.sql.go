@@ -10,7 +10,7 @@ import (
 )
 
 const getAllAddresses = `-- name: GetAllAddresses :many
-SELECT id, city, state, country, pincode, "roomNumber", "BuildingNumber", "createdAt", "updatedAt", "userId" FROM "Address"
+SELECT id, city, state, country, pincode, "roomNumber", "buildingNumber", "createdAt", "updatedAt", "userId", "isDeleted" FROM "Address"
 `
 
 func (q *Queries) GetAllAddresses(ctx context.Context) ([]Address, error) {
@@ -27,12 +27,13 @@ func (q *Queries) GetAllAddresses(ctx context.Context) ([]Address, error) {
 			&i.City,
 			&i.State,
 			&i.Country,
-			&i.Pincode,
+			&i.PinCode,
 			&i.RoomNumber,
 			&i.BuildingNumber,
 			&i.CreatedAt,
 			&i.UpdatedAt,
 			&i.UserId,
+			&i.IsDeleted,
 		); err != nil {
 			return nil, err
 		}

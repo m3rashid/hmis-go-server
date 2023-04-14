@@ -2,5 +2,5 @@
 	"[go]": {
 		"editor.formatOnSaveMode": "file"
 	},
-	"cSpell.enabled": false
+	"cSpell.words": ["pkey", "sqlc"]
 }

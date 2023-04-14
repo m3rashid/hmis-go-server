@@ -15,28 +15,30 @@ model Address {
   city           String
   state          String
   country        String
-  pincode        String
+  pinCode        String
   roomNumber     String
-  BuildingNumber String
+  buildingNumber String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   userId         Int
   user           User     @relation(fields: [userId], references: [id])
+  isDeleted      Boolean  @default(false)
 }
 
 model Resource {
   id             Int          @id @default(autoincrement())
-  name           String
+  name           String       @unique
   description    String
   totalLevelsSum Int
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   permissions    Permission[]
+  isDeleted      Boolean      @default(false)
 }
 
 model Permission {
   id          Int      @id @default(autoincrement())
-  name        String
+  name        String	 @unique
   description String
   roleIds     Int[]
   Role        Role     @relation(fields: [roleIds], references: [id])
@@ -44,18 +46,19 @@ model Permission {
   Resource    Resource @relation(fields: [resourceId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  isDeleted   Boolean  @default(false)
 }
 
 model Role {
   id          Int          @id @default(autoincrement())
   name        String
   description String
-  isDeleted   Boolean      @default(false)
   userIds     Int[]
   permissions Permission[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   users       User[]
+  isDeleted   Boolean      @default(false)
 }
 
 model Availability {
@@ -65,6 +68,7 @@ model Availability {
   endTime   DateTime
   profileId Int
   Profile   Profile  @relation(fields: [profileId], references: [id])
+  isDeleted   Boolean      @default(false)
 }
 
 model User {
@@ -73,7 +77,6 @@ model User {
   email     String
   password  String
   name      String
-  isDeleted Boolean   @default(false)
   roleIds   Int[]
   roles     Role[]
   profileId Int?
@@ -81,6 +84,7 @@ model User {
   addresses Address[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  isDeleted Boolean   @default(false)
 }
 
 model Profile {
@@ -105,6 +109,7 @@ model Profile {
   leaves                Leave[]
   createdAt             DateTime       @default(now())
   updatedAt             DateTime       @updatedAt
+  isDeleted             Boolean        @default(false)
 }
 
 model Appointment {
@@ -123,6 +128,7 @@ model Appointment {
   pending        Boolean
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+  isDeleted      Boolean      @default(false)
 }
 
 model Prescription {
@@ -156,6 +162,7 @@ model Consumables {
   earlierPrescribed PrescribedMedicine[]
   createdAt         DateTime             @default(now())
   updatedAt         DateTime             @updatedAt
+  isDeleted Boolean  @default(false)
 }
 
 model NonConsumables {
@@ -167,6 +174,7 @@ model NonConsumables {
   servicingTimeUnit Int
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+  isDeleted Boolean  @default(false)
 }
 
 model Leave {
@@ -178,4 +186,5 @@ model Leave {
   profile   Profile? @relation(fields: [profileId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
 }

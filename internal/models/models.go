@@ -14,12 +14,13 @@ type Address struct {
 	City           string    `json:"city"`
 	State          string    `json:"state"`
 	Country        string    `json:"country"`
-	Pincode        string    `json:"pincode"`
+	PinCode        string    `json:"pinCode"`
 	RoomNumber     string    `json:"roomNumber"`
-	BuildingNumber string    `json:"BuildingNumber"`
+	BuildingNumber string    `json:"buildingNumber"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
 	UserId         int32     `json:"userId"`
+	IsDeleted      bool      `json:"isDeleted"`
 }
 
 type Appointment struct {
@@ -34,6 +35,7 @@ type Appointment struct {
 	Pending        bool      `json:"pending"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
+	IsDeleted      bool      `json:"isDeleted"`
 }
 
 type Availability struct {
@@ -42,6 +44,7 @@ type Availability struct {
 	StartTime time.Time `json:"startTime"`
 	EndTime   time.Time `json:"endTime"`
 	ProfileId int32     `json:"profileId"`
+	IsDeleted bool      `json:"isDeleted"`
 }
 
 type Consumable struct {
@@ -55,6 +58,7 @@ type Consumable struct {
 	ExpiryDate      time.Time `json:"expiryDate"`
 	CreatedAt       time.Time `json:"createdAt"`
 	UpdatedAt       time.Time `json:"updatedAt"`
+	IsDeleted       bool      `json:"isDeleted"`
 }
 
 type ConsumablesToPrescribedMedicine struct {
@@ -70,6 +74,7 @@ type Leave struct {
 	ProfileId int32     `json:"profileId"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
+	IsDeleted bool      `json:"isDeleted"`
 }
 
 type NonConsumable struct {
@@ -81,6 +86,7 @@ type NonConsumable struct {
 	ServicingTimeUnit int32     `json:"servicingTimeUnit"`
 	CreatedAt         time.Time `json:"createdAt"`
 	UpdatedAt         time.Time `json:"updatedAt"`
+	IsDeleted         bool      `json:"isDeleted"`
 }
 
 type Permission struct {
@@ -91,6 +97,7 @@ type Permission struct {
 	ResourceId  int32     `json:"resourceId"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
+	IsDeleted   bool      `json:"isDeleted"`
 }
 
 type PrescribedMedicine struct {
@@ -124,6 +131,7 @@ type Profile struct {
 	UserId        int32     `json:"userId"`
 	CreatedAt     time.Time `json:"createdAt"`
 	UpdatedAt     time.Time `json:"updatedAt"`
+	IsDeleted     bool      `json:"isDeleted"`
 }
 
 type Resource struct {
@@ -133,16 +141,17 @@ type Resource struct {
 	TotalLevelsSum int32     `json:"totalLevelsSum"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
+	IsDeleted      bool      `json:"isDeleted"`
 }
 
 type Role struct {
 	ID          int32     `json:"id"`
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
-	IsDeleted   bool      `json:"isDeleted"`
 	UserIds     []int32   `json:"userIds"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
+	IsDeleted   bool      `json:"isDeleted"`
 }
 
 type RoleToUser struct {
@@ -156,9 +165,9 @@ type User struct {
 	Email     string         `json:"email"`
 	Password  string         `json:"password"`
 	Name      string         `json:"name"`
-	IsDeleted bool           `json:"isDeleted"`
 	RoleIds   []int32        `json:"roleIds"`
 	ProfileId sql.NullInt32  `json:"profileId"`
 	CreatedAt time.Time      `json:"createdAt"`
 	UpdatedAt time.Time      `json:"updatedAt"`
+	IsDeleted bool           `json:"isDeleted"`
 }
