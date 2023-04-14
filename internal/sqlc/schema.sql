@@ -29,7 +29,9 @@ CREATE TABLE "Resource" (
 -- CreateTable
 CREATE TABLE "Permission" (
     "id" SERIAL NOT NULL,
-    "roleId" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "roleIds" INTEGER[],
     "resourceId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -64,11 +66,11 @@ CREATE TABLE "Availability" (
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "userId" TEXT NOT NULL,
+    "userId" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "isDeleted" BOOLEAN NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "roleIds" INTEGER[],
     "profileId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -210,7 +212,7 @@ CREATE INDEX "_ConsumablesToPrescribedMedicine_B_index" ON "_ConsumablesToPrescr
 ALTER TABLE "Address" ADD CONSTRAINT "Address_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Permission" ADD CONSTRAINT "Permission_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Permission" ADD CONSTRAINT "Permission_roleIds_fkey" FOREIGN KEY ("roleIds") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Permission" ADD CONSTRAINT "Permission_resourceId_fkey" FOREIGN KEY ("resourceId") REFERENCES "Resource"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

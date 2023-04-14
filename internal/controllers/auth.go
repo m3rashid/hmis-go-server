@@ -8,9 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/m3rashid-org/hmis-go-server/internal/params"
-	"github.com/m3rashid-org/hmis-go-server/internal/services"
 	"github.com/m3rashid-org/hmis-go-server/internal/utils"
-	"gorm.io/gorm"
 )
 
 func RefreshToken(c *fiber.Ctx) error {
@@ -74,17 +72,17 @@ func Login(c *fiber.Ctx) error {
 	var Login params.LoginRequest
 	c.BodyParser(Login)
 
-	user := models.User{}
-	if err := utils.GetLocal[*gorm.DB](c, "db").Find(&models.User{}, "email = ?", Login.Email).First(&user); err != nil {
-		c.SendStatus(404)
-	}
+	// user := models.User{}
+	// if err := utils.GetLocal[*gorm.DB](c, "db").Find(&models.User{}, "email = ?", Login.Email).First(&user); err != nil {
+	// c.SendStatus(404)
+	// }
 
-	fmt.Println(user)
+	// fmt.Println(user)
 
-	matched := services.CheckPasswordHash(user.Password, Login.Password)
-	if !matched {
-		c.SendStatus(401)
-	}
+	// matched := services.CheckPasswordHash(user.Password, Login.Password)
+	// if !matched {
+	// c.SendStatus(401)
+	// }
 
 	// rawPermissions := user.Role().Permissions()
 	// permissions := rawPermissions
@@ -104,11 +102,15 @@ func Login(c *fiber.Ctx) error {
 	})
 	return c.Status(200).JSON(fiber.Map{
 		"token": tokenString,
-		"user":  user,
+		// "user":  user,
 		// "permissions": rawPermissions,
 	})
 }
 
 func CreateUser(c *fiber.Ctx) error {
 	return c.SendString("Hello, World!")
+}
+
+func CreateAdmin(c *fiber.Ctx) error {
+	return c.SendString("Admin Created")
 }

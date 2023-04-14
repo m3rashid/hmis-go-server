@@ -1,4 +1,5 @@
 #!/bin/bash
+# Path: scripts/clean.sh
 
 declare -a folders=( "node_modules" "build" "dist" ".idea")
 
