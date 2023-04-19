@@ -4,11 +4,14 @@ import (
 	"log"
 	"os"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
 	"github.com/joho/godotenv"
 	"github.com/m3rashid-org/hmis-go-server/internal/config"
 	"github.com/m3rashid-org/hmis-go-server/internal/controllers"
 	"github.com/m3rashid-org/hmis-go-server/internal/middlewares"
+	"github.com/m3rashid-org/hmis-go-server/internal/models"
+	"github.com/m3rashid-org/hmis-go-server/internal/utils"
 	"github.com/m3rashid-org/hmis-go-server/internal/ws"
 )
 
@@ -18,10 +21,12 @@ func main() {
 		log.Fatal("Error loading .env")
 	}
 
-	// db, err := models.SetupGorm()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	client, ctx, cancel, err := models.Connect("mongodb://localhost:27017")
+	if err != nil {
+		panic(err)
+	}
+	defer models.Close(client, ctx, cancel)
+	models.Ping(client, ctx)
 
 	app := config.FiberApp
 	app.Use(middlewares.Cors)
@@ -31,10 +36,11 @@ func main() {
 	app.Use(middlewares.Compression)
 	app.Use(middlewares.Idempotency)
 	app.Use(middlewares.Limiter)
-	// app.Use(func(c *fiber.Ctx) error {
-	// 	utils.SetLocal(c, "db", db) // add db connection to context
-	// 	return c.Next()
-	// })
+	app.Use(func(c *fiber.Ctx) error {
+		utils.SetLocal(c, "db", client) // add db connection to context
+		utils.SetLocal(c, "ctx", ctx)   // add context to context
+		return c.Next()
+	})
 
 	app.Get("/", controllers.Base)
 	app.Get("/ping", controllers.Ping)

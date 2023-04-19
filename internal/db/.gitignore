@@ -1,5 +1,0 @@
-node_modules
-migrations
-!archives/migrations
-.env
-yarn-error.log
