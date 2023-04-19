@@ -8,7 +8,7 @@ Hospital Management and Informatics systems
 
 OPD (OUT Patient Department)
 
-- Come -> Consilt -> Go
+- Come -> Consult -> Go
 - Appointments/ Single Time Interactions
 - Discrete History management
 
@@ -57,11 +57,11 @@ Tracking and Behaviour
 Payments
 
 - Payment Integration
-- Skippable/Configurable Payments
+- Skip-able/Configurable Payments
 
 <br>
 
-Hospital Pacakage Creator
+Hospital Package Creator
 
 - Health Checkups
 - Operations and surgeries
@@ -87,7 +87,7 @@ Other Features
 <summary>Designations</summary>
 <br>
 
-Designation does not implement any permission of its own, it is just a way to label users on the basis of their name in the workplace. Permissions are implemented granuarly and can be assigned to any user.
+Designation does not implement any permission of its own, it is just a way to label users on the basis of their name in the workplace. Permissions are implemented granularly and can be assigned to any user.
 
 <br>
 
@@ -132,7 +132,7 @@ Pharmacist
 
 Patient
 
-- Signup + Create/Update Profile
+- Sign-up + Create/Update Profile
 - Quote for appointment
 
 </details>

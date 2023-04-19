@@ -17,6 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env")
 	}
+
 	// db, err := models.SetupGorm()
 	// if err != nil {
 	// 	log.Fatal(err)

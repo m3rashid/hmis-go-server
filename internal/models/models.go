@@ -32,7 +32,6 @@ type Appointment struct {
 	Remarks        string    `json:"remarks"`
 	ReferredBy     int32     `json:"referredBy"`
 	PrescriptionId int32     `json:"prescriptionId"`
-	Pending        bool      `json:"pending"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
 	IsDeleted      bool      `json:"isDeleted"`

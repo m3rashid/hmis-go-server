@@ -2,5 +2,15 @@
 	"[go]": {
 		"editor.formatOnSaveMode": "file"
 	},
-	"cSpell.words": ["pkey", "sqlc"]
+	"cSpell.words": [
+		"Etag",
+		"godotenv",
+		"gofiber",
+		"Gorm",
+		"Idempotency",
+		"joho",
+		"pkey",
+		"sqlc",
+		"Upgrader"
+	]
 }

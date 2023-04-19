@@ -125,7 +125,6 @@ model Appointment {
   referredByUser Profile      @relation("referrerUser", fields: [referredBy], references: [id])
   prescriptionId Int
   prescription   Prescription @relation(fields: [prescriptionId], references: [id])
-  pending        Boolean
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   isDeleted      Boolean      @default(false)
