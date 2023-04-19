@@ -3,6 +3,7 @@
 		"editor.formatOnSaveMode": "file"
 	},
 	"cSpell.words": [
+		"dbname",
 		"Etag",
 		"godotenv",
 		"gofiber",
@@ -10,7 +11,11 @@
 		"Idempotency",
 		"joho",
 		"pkey",
+		"primarykey",
+		"smallint",
 		"sqlc",
-		"Upgrader"
+		"SSLMODE",
+		"Upgrader",
+		"varchar"
 	]
 }
