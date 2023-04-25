@@ -42,6 +42,8 @@ func SetupGorm() (*gorm.DB, error) {
 		},
 	)
 
+	fmt.Println("Database connection established successfully")
+
 	// TODO: setup prometheus metrics
 	// db.Use(prometheus.New(prometheus.Config{
 	// 	DBName:          "db1",
@@ -70,6 +72,8 @@ func SetupGorm() (*gorm.DB, error) {
 		&PrescribedMedicine{},
 		&Prescription{},
 	)
+
+	fmt.Println("Database Migrated Successfully")
 
 	return db, err
 }
